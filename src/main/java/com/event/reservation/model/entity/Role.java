@@ -25,10 +25,11 @@ import lombok.NoArgsConstructor;
 public class Role {
   
   @Id
-  @Column(name = "mst_role")
+  @Column(name = "id_role")
   private String id;
 
   @Enumerated(EnumType.STRING)
+  @Column(name = "role_name")
   private ERole role;
 
   @PrePersist

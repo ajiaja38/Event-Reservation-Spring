@@ -13,19 +13,19 @@ import com.event.reservation.model.entity.User;
 public interface UserRepository extends JpaRepository<User, String> {
   
   @Query(
-    value = "SELECT * FROM t_user WHERE deleted = 1",
+    value = "SELECT * FROM mst_user WHERE deleted = ?1",
     nativeQuery = true
   )
   List<User> findAllUserByDeleted(boolean deleted);
 
   @Query(
-    value = "SELECT * FROM t_user WHERE user_id = 1 AND deleted = 2",
+    value = "SELECT * FROM mst_user WHERE user_id = ?1 AND deleted = ?2",
     nativeQuery = true
   )
   Optional<User> findByIdAndDeleted(String id, boolean deleted);
 
   @Query(
-    value = "SELECT * FROM t_user WHERE email = 1",
+    value = "SELECT * FROM mst_user WHERE email = ?1",
     nativeQuery = true
   )
   Optional<User> findUserByEmail(String email);
