@@ -57,11 +57,11 @@ public class User {
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id")
   )
+  private List<ERole> roles;
 
   @PrePersist
   public void prefixId() {
     this.id = "user-" + UUID.randomUUID();
   }
-  private List<ERole> roles;
 
 }
