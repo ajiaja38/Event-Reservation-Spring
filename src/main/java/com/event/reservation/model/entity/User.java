@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.hibernate.annotations.SQLDelete;
 
-import com.event.reservation.utils.enums.ERole;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,7 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "mst_user")
-@SQLDelete(sql = "UPDATE mst_user SET status = false WHERE user_id = ?")
+@SQLDelete(sql = "UPDATE mst_user SET deleted = false WHERE user_id = ?")
 public class User {
   
   @Id
@@ -44,7 +43,7 @@ public class User {
   private String phone;
 
   @JsonIgnore
-  private boolean status;
+  private boolean deleted;
 
   private String password;
 
@@ -57,7 +56,7 @@ public class User {
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id")
   )
-  private List<ERole> roles;
+  private List<Role> roles;
 
   @PrePersist
   public void prefixId() {
