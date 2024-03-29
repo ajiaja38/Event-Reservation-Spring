@@ -10,6 +10,7 @@ import com.event.reservation.model.entity.AppUser;
 
 public interface UserService extends UserDetailsService {
   UserResponseDto createUser(CreateUserDto createUserDto);
+  UserResponseDto createUserAdmin(CreateUserDto createUserDto);
   List<UserResponseDto> getAllUsers();
   UserResponseDto getUserByUserId(String id);
   AppUser loadUserByUserId(String id);

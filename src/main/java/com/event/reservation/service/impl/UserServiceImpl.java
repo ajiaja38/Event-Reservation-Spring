@@ -70,6 +70,43 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  public UserResponseDto createUserAdmin(CreateUserDto createUserDto) {
+    try {
+      List<ERole> roles = new ArrayList<>();
+      roles.add(ERole.ADMIN);
+
+      List<Role> userRoles = new ArrayList<>();
+
+      for(ERole role : roles) {
+        Role roleResult = this.roleService.getOrSave(role);
+        userRoles.add(roleResult);
+      }
+      
+      User user = User.builder()
+      .name(createUserDto.getName())
+      .email(createUserDto.getEmail())
+      .phone(createUserDto.getPhone())
+      .password(this.passwordEncoder.encode(createUserDto.getPassword()))
+      .roles(userRoles)
+      .birthDate(createUserDto.getBirthDate())
+      .build();
+
+      this.userRepository.save(user);
+
+      return UserResponseDto.builder()
+      .name(user.getName())
+      .email(user.getEmail())
+      .phone(user.getPhone())
+      .birthDate(user.getBirthDate())
+      .roles(roles)
+      .build();
+
+    } catch (DataIntegrityViolationException e) {
+      throw e;
+    }
+  }
+
+  @Override
   public List<UserResponseDto> getAllUsers() {
     List<User> users = this.userRepository.findAllUserByDeleted(false);
     List<UserResponseDto> userResponseDtos = new ArrayList<>();
@@ -144,7 +181,10 @@ public class UserServiceImpl implements UserService {
     existingUser.setPassword(this.passwordEncoder.encode(createUserDto.getPassword()));
     existingUser.setBirthDate(createUserDto.getBirthDate());
 
+    this.userRepository.save(existingUser);
+
     return UserResponseDto.builder()
+    .id(existingUser.getId())
     .name(existingUser.getName())
     .email(existingUser.getEmail())
     .phone(existingUser.getPhone())
@@ -156,7 +196,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public void deleteUser(String id) {
     this.getUserByUserId(id);
-    this.userRepository.deleteById(id);
+    this.userRepository.softDeleteUser(id);
   }
   
 }

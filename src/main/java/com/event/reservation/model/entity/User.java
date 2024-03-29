@@ -29,7 +29,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "mst_user")
-@SQLDelete(sql = "UPDATE mst_user SET deleted = false WHERE user_id = ?")
 public class User {
   
   @Id
@@ -38,6 +37,7 @@ public class User {
 
   private String name;
 
+  @Column(unique = true)
   private String email;
 
   private String phone;

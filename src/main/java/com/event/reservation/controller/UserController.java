@@ -47,6 +47,21 @@ public class UserController {
     );
   }
 
+  @PostMapping("signup/admin")
+  public ResponseEntity<Response<UserResponseDto>> registerUserAdminHandler(
+    @RequestBody CreateUserDto createUserDto
+  ) {
+    return ResponseEntity
+    .status(HttpStatus.CREATED)
+    .body(
+      new Response<UserResponseDto>(
+        HttpStatus.CREATED.value(),
+        "User Created Successfully",
+        this.userService.createUserAdmin(createUserDto)
+      )
+    );
+  }
+
   @GetMapping
   public ResponseEntity<Response<List<UserResponseDto>>> getAllUsersHandler() {
     return ResponseEntity
