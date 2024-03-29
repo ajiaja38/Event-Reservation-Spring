@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.event.reservation.model.entity.Event;
 import com.event.reservation.repository.EventRepository;
 import com.event.reservation.service.EventService;
 
+@Service
 public class EventServiceImpl implements EventService {
 
   @Autowired
