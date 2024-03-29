@@ -3,8 +3,6 @@ package com.event.reservation.model.entity;
 import java.util.Date;
 import java.util.UUID;
 
-import org.hibernate.annotations.SQLDelete;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,7 +19,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-@SQLDelete(sql = "UPDATE mst_event SET is_over = true WHERE event_id = ?")
 public class Event {
   
   @Id
