@@ -1,7 +1,10 @@
 package com.event.reservation.model.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,12 +32,14 @@ public class Event {
 
   private String detailEvent;
 
-  private String price;
+  private int price;
 
-  private String quota;
+  private int quota;
 
+  @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "GMT+7")
   private Date startTime;
 
+  @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "GMT+7")
   private Date endTime;
 
   @Column(name = "is_over")

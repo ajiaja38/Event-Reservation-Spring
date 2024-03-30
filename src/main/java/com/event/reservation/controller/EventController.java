@@ -85,7 +85,7 @@ public class EventController {
       new Response<Event>(
         HttpStatus.OK.value(),
         "Successfully Update Event",
-        this.eventService.updateEvent(event)
+        this.eventService.updateEvent(id, event)
       )
     );
   }

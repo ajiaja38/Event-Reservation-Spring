@@ -19,6 +19,7 @@ public class EventServiceImpl implements EventService {
   
   @Override
   public Event createEvent(Event event) {
+    
     Event newEvent = Event.builder()
     .eventName(event.getEventName())
     .detailEvent(event.getDetailEvent())
@@ -40,15 +41,13 @@ public class EventServiceImpl implements EventService {
   @Override
   public Event getEvent(String id) {
     return this.eventRepository.findEventById(id).orElseThrow(
-      () -> new IllegalArgumentException("Event not found!")
+      () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!")
     );
   }
 
   @Override
-  public Event updateEvent(Event event) {
-    Event existingEvent = this.eventRepository.findEventById(event.getId()).orElseThrow(
-      () -> new IllegalArgumentException("Event not found!")
-    );
+  public Event updateEvent(String id, Event event) {
+    Event existingEvent = this.getEvent(id);
 
     existingEvent.setEventName(event.getEventName());
     existingEvent.setDetailEvent(event.getDetailEvent());

@@ -16,7 +16,7 @@ import jakarta.transaction.Transactional;
 public interface EventRepository extends JpaRepository<Event, String> {
   
   @Query(
-    value = "SELECT * FROM mst_event WHERE deleted = ?1",
+    value = "SELECT * FROM mst_event WHERE is_over = ?1",
     nativeQuery = true
   )
   List<Event> findAllEventByDeleted(boolean deleted);
